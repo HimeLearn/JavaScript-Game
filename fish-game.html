@@ -1,0 +1,129 @@
+<html>
+
+<head>
+  <style>
+    body {
+      background-repeat: no-repeat;
+      background-size: cover;
+      height: 100%;
+    }
+  </style>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+
+      document.body.style.backgroundImage = "url('Under-Water.jpg')";
+
+      var fish = document.createElement('img');
+      fish.src = 'Main-fish.png';
+      fish.style.position = 'absolute';
+      fish.style.left = '0px';
+      fish.style.top = '0px';
+      document.body.appendChild(fish);
+
+      fish.style.width = '15%';
+
+      document.addEventListener('mousemove', function (e) {
+        fish.style.left = e.clientX + 'px';
+        fish.style.top = e.clientY + 'px';
+      });
+
+      document.body.style.overflow = 'hidden';
+
+      document.addEventListener('mousemove', function (e) {
+        fish.style.left = e.clientX + 'px';
+        fish.style.top = e.clientY + 'px';
+        if (e.clientX > window.innerWidth - fish.clientWidth) {
+          fish.style.left = window.innerWidth - fish.clientWidth + 'px';
+        }
+        if (e.clientY > window.innerHeight - fish.clientHeight) {
+          fish.style.top = window.innerHeight - fish.clientHeight + 'px';
+        }
+      });
+
+      var smallFish = document.createElement('img');
+      smallFish.src = 'Small-fish.png';
+      smallFish.style.position = 'absolute';
+      smallFish.style.left = '0px';
+      smallFish.style.top = '0px';
+      document.body.appendChild(smallFish);
+
+      smallFish.style.width = '8%';
+      smallFish.style.left = window.innerWidth / 2 - smallFish.clientWidth / 2 + 'px';
+      smallFish.style.top = window.innerHeight / 2 - smallFish.clientHeight / 2 + 'px';
+
+      smallFish.style.left = window.innerWidth - smallFish.clientWidth + 'px';
+
+      smallFish.style.opacity = '0';
+
+      var smallFishInterval = setInterval(function () {
+        var smallFish = document.createElement('img');
+        smallFish.src = '';
+        smallFish.style.position = 'absolute';
+        smallFish.style.left = window.innerWidth + 'px';
+        smallFish.style.top = Math.random() * window.innerHeight + 'px';
+        smallFish.style.width = '8%';
+        document.body.appendChild(smallFish);
+        var smallFishInterval = setInterval(function () {
+          smallFish.style.left = smallFish.offsetLeft - 1 + 'px';
+          if (smallFish.offsetLeft < -smallFish.clientWidth) {
+            clearInterval(smallFishInterval);
+            document.body.removeChild(smallFish);
+          }
+        }, 10);
+      }, 3000);
+
+      fish.style.zIndex = '9999';
+
+      var score = 0;
+      var scoreElement = document.createElement('div');
+      scoreElement.style.position = 'absolute';
+      scoreElement.style.left = '0px';
+      scoreElement.style.top = '0px';
+      scoreElement.style.color = 'white';
+      scoreElement.style.fontSize = '30px';
+      scoreElement.innerHTML = 'Score: ' + score;
+      document.body.appendChild(scoreElement);
+
+      var smallFishInterval = setInterval(function () {
+        var smallFish = document.createElement('img');
+        smallFish.src = 'Small-fish.png';
+        smallFish.style.position = 'absolute';
+        smallFish.style.left = window.innerWidth + 'px';
+        smallFish.style.top = Math.random() * window.innerHeight + 'px';
+        smallFish.style.width = '8%';
+        document.body.appendChild(smallFish);
+        var smallFishInterval = setInterval(function () {
+          smallFish.style.left = smallFish.offsetLeft - 1 + 'px';
+          if (smallFish.offsetLeft < -smallFish.clientWidth) {
+            clearInterval(smallFishInterval);
+            document.body.removeChild(smallFish);
+          }
+          if (
+            smallFish.offsetLeft < fish.offsetLeft + fish.clientWidth &&
+            smallFish.offsetLeft + smallFish.clientWidth > fish.offsetLeft &&
+            smallFish.offsetTop < fish.offsetTop + fish.clientHeight &&
+            smallFish.offsetTop + smallFish.clientHeight > fish.offsetTop
+          ) {
+            clearInterval(smallFishInterval);
+            document.body.removeChild(smallFish);
+            score++;
+            scoreElement.innerHTML = 'Score: ' + score;
+          }
+        }, 10);
+      }, 3000);
+    });
+  </script>
+</head>
+
+<body style="margin: 0;">
+  <div
+    style="background-color: transparent; position: fixed; bottom: 0; width: 100%; height: 20px; padding: 20px; z-index: 1000;">
+    <div
+      style="display: inline-block; color: white; vertical-align: top; margin-top: 4px; font-family: Helvetica, sans-serif;">
+      HimeLearn <a style="color: white; text-decoration: none; font-weight: bold;"
+        href="https://www.youtube.com/@HimeLearn/">Subscribe now!</a>
+    </div>
+  </div>
+</body>
+
+</html>
